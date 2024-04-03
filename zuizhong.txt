@@ -1,0 +1,19 @@
+1 caopeixin xupt m 18 student (null) 0 1
+2 wangkewei xupt f 18 shangpu Wed Apr  3 11:36:12 2024
+ 1 0
+3 haigongniu xupt m 20 shezhang (null) 0 1
+4 wuyuchen xupt m 18 liuyalian (null) 0 1
+5 wuyingjie xupt f 18 liangjian Wed Apr  3 11:36:07 2024
+ 1 0
+6 liuyijing xupt m 19 danzai Wed Apr  3 11:36:14 2024
+ 1 0
+7 zhangyuqing xut f 18 dianzi (null) 0 1
+8 liukexin xut f 18 zidonghua Wed Apr  3 11:36:09 2024
+ 1 0
+9 maosiwei xut m 19 dianqi (null) 0 1
+10 heyixuan xut f 18 guimi (null) 0 1
+11 songwei sust m 20 cailiao (null) 0 1
+12 xiangchun cpu m 19 zhongyao (null) 0 1
+13 fujiuxu chd f 18 cailiao (null) 0 1
+14 wangtao chd m 19 jixie (null) 0 1
+15 xiaobing chd m 20 qiaoliang (null) 0 1

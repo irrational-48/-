@@ -26,6 +26,7 @@ struct student{
     int clock;
     int queqin;
 };
+int del[10];
 
 struct Staff* creatNode(int n,char name[],char department[],char sex,int age,char position[])
 {
@@ -161,11 +162,16 @@ void findClock(struct Staff* head,int arr[],int m,struct student stu[],struct co
     int t = 0;
     y = 0;
     int ai = 0;
+    int oi = 0;
     bubbleSort(arr,m);
-    printf("%d",arr[0]);
     while(head != NULL)
     {
         int bi = 0;
+        if((ai+1)==del[oi])
+        {
+            ai++;
+            oi++;
+        }
         if(head->number !=  arr[t])
         {
             strcpy(data[y],head->name);
@@ -244,6 +250,8 @@ void sortNoclock(int deal,struct student stu[])
 {
     int g = 0;
     int c = 0;
+    int f = 0;
+    int z = 0;
     struct student temp;
     for(g = 0;g < deal-1;g++)
     {
@@ -260,6 +268,11 @@ void sortNoclock(int deal,struct student stu[])
     printf("Rank employees by number of absences:\n");
     for(c = 0;c<deal;c++)
     {
+        if(stu[c].n==del[z])
+        {
+            z++;
+            continue;
+        }
         printf("%d %s %d\n",stu[c].n,stu[c].name,stu[c].queqin);
     }
 }
@@ -283,7 +296,8 @@ void printList(struct Staff* head)
     while(head != NULL)
     {
         printf("%d %s %s ",head->number,head->name,head->department);
-        printf("%c %d %s\n",head->sex,head->age,head->position);
+        printf("%c %d %s ",head->sex,head->age,head->position);
+        printf("%d %d %s\n",head->clock,head->queqin,ctime(&head->clockTime));
         head = head->next;
     }
 }
@@ -302,9 +316,11 @@ int main()
     fp = fopen("staff.txt","rt");
     int u = 0;
     int v = 0;
+    int m = 0;
     if(fp == NULL)
     {
         printf("不能打开此文件，按任意键退出\n");
+        getchar();
         exit(1);
     }
     while(fscanf(fp,"%d %s %s %c %d %s",&stu[u].n,stu[u].name,stu[u].department,&stu[u].sex,&stu[u].age,stu[u].position)!=EOF)
@@ -319,6 +335,7 @@ int main()
     if(fp == NULL)
     {
         printf("不能打开此文件，按任意键退出\n");
+        getchar();
         exit(1);
     }
     while(fscanf(fp,"%s",com[v].depart)!=EOF)
@@ -379,7 +396,10 @@ int main()
         { 
             printf("Please input your number which you want to delate:\n");
             scanf("%d",&i);
+            del[m] = i;
             deleteNode(&head,i);
+            u--;
+            m++;
             printf("Delete successfully!\n");
         }
         else if(froce==4)
@@ -432,7 +452,7 @@ int main()
     }
     sortNoclock(u,stu);//按照缺勤次数对员工进行排序
     findcompany(com);//输出缺勤次数最多的部门
-    //printList(head);
+    printList(head);
     FILE* file;
     file = fopen("zuizhong.txt","wt");
     if(file == NULL)

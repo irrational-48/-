@@ -1,15 +1,15 @@
-1 caopeixin xupt m 18 student
-2 wangkewei xupt f 18 shangpu
-3 haigongniu xupt m 20 shezhang
-4 wuyuchen xupt m 18 liuyalian
-5 wuyingjie xupt f 18 liangjian
-6 liuyijing xupt m 19 danzai
-7 zhangyuqing xut f 18 dianzi
-8 liukexin xut f 18 zidonghua
-9 maosiwei xut m 19 dianqi
-10 heyixuan xut f 18 guimi
-11 songwei sust m 20 cailiao
-12 xiangchun cpu m 19 zhongyao
-13 fujiuxu chd f 18 cailiao
-14 wangtao chd m 19 jixie
-15 xiaobing chd m 20 qiaoliang
+1 caopeixin xupt m 18 student caopeixin12
+2 wangkewei xupt f 18 shangpu wangkewei12
+3 haigongniu xupt m 20 shezhang haigongniu12
+4 wuyuchen xupt m 18 liuyalian wuyuchen12
+5 wuyingjie xupt f 18 liangjian wuyingjie12
+6 liuyijing xupt m 19 danzai liuyijing12
+7 zhangyuqing xut f 18 dianzi zhangyuqing12
+8 liukexin xut f 18 zidonghua liukexin12
+9 maosiwei xut m 19 dianqi maosiwei12
+10 heyixuan xut f 18 guimi heyixuan12
+11 songwei sust m 20 cailiao songwei12
+12 xiangchun cpu m 19 zhongyao xiangchun12
+13 fujiuxu chd f 18 cailiao fujiuxu12
+14 wangtao chd m 19 jixie wangtao12
+15 xiaobing chd m 20 qiaoliang xiaobing12

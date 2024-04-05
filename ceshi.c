@@ -11,6 +11,7 @@ struct Staff
     char sex;
     int age;
     char position[20];
+    char password[20];
     time_t clockTime;
     int clock;
     int queqin;
@@ -23,12 +24,13 @@ struct student{
     char sex;
     int age;
     char position[20];
+    char password[20];
     int clock;
     int queqin;
 };
 int del[10];
 
-struct Staff* creatNode(int n,char name[],char department[],char sex,int age,char position[])
+struct Staff* creatNode(int n,char name[],char department[],char sex,int age,char position[],char password[])
 {
     struct Staff* newNode = (struct Staff*)malloc(sizeof(struct Staff));
     newNode->number = n;
@@ -37,15 +39,16 @@ struct Staff* creatNode(int n,char name[],char department[],char sex,int age,cha
     newNode->sex = sex;
     newNode->age = age;
     strcpy(newNode->position,position);
+    strcpy(newNode->password,password);
     newNode->clock = 0;
     newNode->queqin = 0;
     newNode->next = NULL;
     return newNode;
 }
 
-void insertNode(struct Staff** head,int n,char name[],char department[],char sex,int age,char position[])
+void insertNode(struct Staff** head,int n,char name[],char department[],char sex,int age,char position[],char password[])
 {
-    struct Staff* newNode = creatNode(n,name,department,sex,age,position);
+    struct Staff* newNode = creatNode(n,name,department,sex,age,position,password);
     if(*head == NULL)
     {
         *head = newNode;
@@ -312,6 +315,8 @@ int main()
     int froce = 0;
     char choice;
     char clockuse = 'Y';
+    char mingzi[20];
+    char mima[20];
     FILE *fp;
     fp = fopen("staff.txt","rt");
     int u = 0;
@@ -323,11 +328,11 @@ int main()
         getchar();
         exit(1);
     }
-    while(fscanf(fp,"%d %s %s %c %d %s",&stu[u].n,stu[u].name,stu[u].department,&stu[u].sex,&stu[u].age,stu[u].position)!=EOF)
+    while(fscanf(fp,"%d %s %s %c %d %s %s",&stu[u].n,stu[u].name,stu[u].department,&stu[u].sex,&stu[u].age,stu[u].position,stu[u].password)!=EOF)
     {
         stu[u].clock = 0;
         stu[u].queqin = 0;
-        insertNode(&head,stu[u].n,stu[u].name,stu[u].department,stu[u].sex,stu[u].age,stu[u].position);
+        insertNode(&head,stu[u].n,stu[u].name,stu[u].department,stu[u].sex,stu[u].age,stu[u].position,stu[u].password);
         u++;
     }
     fclose(fp);
@@ -345,130 +350,145 @@ int main()
         v++;
     }
     fclose(fp);
-    printf("Please intput Y/N to coming/break:\n");
-    scanf("%c",&choice);
-    if(choice=='Y')
+    printf("Please input your name and password to sign in:\n");
+    scanf("%s %s",mingzi,mima);
+    struct Staff* jian = head;
+    while(jian != NULL)
     {
-        printf("Welcome to Employee Information Management System!\n");
-    }
-    while(choice == 'Y')
-    {
-        printf("Please input your choice.\n");
-        printf("1-sign in  2-revise  3-delete  4-clock  other-exit\n");
-        scanf("%d",&froce);
-        if(froce==1)
+        if(strcmp(jian->password,mima)==0&&strcmp(jian->name,mingzi)==0)
         {
-            printf("Please sign in your information:\n");
-            char name[20];
-            char department[20];
-            char sex;
-            int age;
-            char position[20];
-            scanf("%s %s %c %d %s",name,department,&sex,&age,position);
-            insertNode(&head,i,name,department,sex,age,position);
-            stu[u].n = u + 1;
-            strcpy(stu[u].name,name);
-            strcpy(stu[u].department,department);
-            stu[u].sex = sex;
-            stu[u].age = age;
-            strcpy(stu[u].position,position);
-            stu[u].clock = 0;
-            stu[u].queqin = 0;
-            u++;
             printf("Sign in successfully!\n");
-            printf("Your number is %d.\n",i++);
-        }
-        else if(froce==2)
-        {
-            printf("Please input your number which you want to revise:\n");
-            scanf("%d",&i);
-            char newna[20];
-            char newde[20];
-            char newse;
-            int newag;
-            char newpo[20];
-            printf("Please input your new information:\n");
-            scanf("%s %s %c %d %s",newna,newde,&newse,&newag,newpo);
-            reviseNode(head,i,newna,newde,newse,newag,newpo);
-            printf("Revise successfully!\n");
-        }
-        else if(froce==3)
-        { 
-            printf("Please input your number which you want to delate:\n");
-            scanf("%d",&i);
-            del[m] = i;
-            deleteNode(&head,i);
-            u--;
-            m++;
-            printf("Delete successfully!\n");
-        }
-        else if(froce==4)
-        {
-            ir = 0;
-            j = 0;
-            for(int k = 0;k < 20; k++)
-            {
-                n[k] = 0;
-            }
-            do
-            {
-                printf("Please input your number to clock:\n");
-                printf("And input Y/N to continue/break.\n");
-                scanf("%d %c",&i,&clockuse);
-                sreachClock(head,n,i,com);
-            }while(clockuse == 'Y');
-            findClock(head,n,j,stu,com);
-            int xuan;
+            printf("Welcome to Employee Information Management System!\n");
             while(1)
             {
-                printf("Please input your choice\n");
-                printf("1-sreach no clock   2-check clock time  3-check department clock  other-exit\n");
-                scanf("%d",&xuan);
-                if(xuan==1)
+                printf("Please input your choice.\n");
+                printf("1-sign in  2-revise  3-delete  4-clock  other-exit\n");
+                scanf("%d",&froce);
+                if(froce==1)
                 {
-                    prnoclock();//输出未打卡的员工
+                    printf("Please sign in your information:\n");
+                    char name[20];
+                    char department[20];
+                    char sex;
+                    int age;
+                    char position[20];
+                    char password[20];
+                    scanf("%s %s %c %d %s %s",name,department,&sex,&age,position,password);
+                    insertNode(&head,i,name,department,sex,age,position,password);
+                    stu[u].n = u + 1;
+                    strcpy(stu[u].name,name);
+                    strcpy(stu[u].department,department);
+                    stu[u].sex = sex;
+                    stu[u].age = age;
+                    strcpy(stu[u].position,position);
+                    strcpy(stu[u].password,password);
+                    stu[u].clock = 0;
+                    stu[u].queqin = 0;
+                    u++;
+                    printf("Sign in successfully!\n");
+                    printf("Your number is %d.\n",i++);
                 }
-                else if(xuan==2)
+                else if(froce==2)
                 {
-                    printf("There are some people who have clocked:\n");
-                    qsort(person, j, sizeof(struct Employee), compare);
-                    timeLine(person,j);//按照打卡时间对员工排序
+                    printf("Please input your number which you want to revise:\n");
+                    scanf("%d",&i);
+                    char newna[20];
+                    char newde[20];
+                    char newse;
+                    int newag;
+                    char newpo[20];
+                    printf("Please input your new information:\n");
+                    scanf("%s %s %c %d %s",newna,newde,&newse,&newag,newpo);
+                    reviseNode(head,i,newna,newde,newse,newag,newpo);
+                    printf("Revise successfully!\n");
                 }
-                else if(xuan==3)
+                else if(froce==3)
+                { 
+                    printf("Please input your number which you want to delate:\n");
+                    scanf("%d",&i);
+                    del[m] = i;
+                    deleteNode(&head,i);
+                    u--;
+                    m++;
+                    printf("Delete successfully!\n");
+                }
+                else if(froce==4)
                 {
-                    sumCompany(com);//输出部门打卡情况
+                    ir = 0;
+                    j = 0;
+                    for(int k = 0;k < 20; k++)
+                    {
+                        n[k] = 0;
+                    }
+                    do
+                    {
+                        printf("Please input your number to clock:\n");
+                        printf("And input Y/N to continue/break.\n");
+                        scanf("%d %c",&i,&clockuse);
+                        sreachClock(head,n,i,com);
+                    }while(clockuse == 'Y');
+                    findClock(head,n,j,stu,com);
+                    int xuan;
+                    while(1)
+                    {
+                        printf("Please input your choice\n");
+                        printf("1-sreach no clock   2-check clock time  3-check department clock  other-exit\n");
+                        scanf("%d",&xuan);
+                        if(xuan==1)
+                        {
+                            prnoclock();//输出未打卡的员工
+                        }
+                        else if(xuan==2)
+                        {
+                            printf("There are some people who have clocked:\n");
+                            qsort(person, j, sizeof(struct Employee), compare);
+                            timeLine(person,j);//按照打卡时间对员工排序
+                        }
+                        else if(xuan==3)
+                        {
+                            sumCompany(com);//输出部门打卡情况
+                        }
+                        else if(xuan<1||xuan>3)
+                        {
+                            break;
+                        }
+                    }
+                    chushihua(com);//初始化部门打卡情况
                 }
-                else if(xuan<1||xuan>3)
+                else if(froce>4||froce<1)
                 {
                     break;
                 }
             }
-            chushihua(com);//初始化部门打卡情况
+            sortNoclock(u,stu);//按照缺勤次数对员工进行排序
+            findcompany(com);//输出缺勤次数最多的部门
+            printList(head);
+            FILE* file;
+            file = fopen("zuizhong.txt","wt");
+            if(file == NULL)
+            {
+                printf("不能打开此文件，按任意键退出。\n");
+                getchar();
+                exit(1);
+            }
+            struct Staff* temp;
+            while(head != NULL)
+            {
+                temp = head;
+                fprintf(file,"%d %s %s %c %d %s %s %d %d\n",temp->number,temp->name,temp->department,temp->sex,temp->age,temp->position,ctime(&temp->clockTime),temp->clock,temp->queqin);
+                head = head->next;
+                free(temp);
+            }
+            fclose(file);
+            exit(1);
         }
-        else if(froce>4||froce<1)
-        {
-            break;
+        else {
+            jian = jian->next;
         }
     }
-    sortNoclock(u,stu);//按照缺勤次数对员工进行排序
-    findcompany(com);//输出缺勤次数最多的部门
-    printList(head);
-    FILE* file;
-    file = fopen("zuizhong.txt","wt");
-    if(file == NULL)
+    if(jian==NULL)
     {
-        printf("不能打开此文件，按任意键退出。\n");
-        getchar();
-        exit(1);
+        printf("Please input right information!\n");
     }
-    struct Staff* temp;
-    while(head != NULL)
-    {
-        temp = head;
-        fprintf(file,"%d %s %s %c %d %s %s %d %d\n",temp->number,temp->name,temp->department,temp->sex,temp->age,temp->position,ctime(&temp->clockTime),temp->clock,temp->queqin);
-        head = head->next;
-        free(temp);
-    }
-    fclose(file);
     return 0;
 }
